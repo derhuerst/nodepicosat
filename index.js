@@ -1,6 +1,6 @@
 'use strict'
 
-const bindings = require('node-gyp-build')(__dirname)
+const solveUnsafe = require('./lib/native')
 
 const encode = (formula, assumptions) => {
   if (!Array.isArray(formula)) throw new Error('formula must be an array.')
@@ -77,10 +77,6 @@ const solve = (formula, assumptions = []) => {
     status: statusCode,
     solution: solution.slice(1)
   }
-}
-
-const solveUnsafe = (formula, assumptions) => {
-  return bindings.node_picosat_sat(formula, assumptions)
 }
 
 Object.assign(solve, {encode, solveUnsafe, UNKNOWN, SATISFIABLE, UNSATISFIABLE})

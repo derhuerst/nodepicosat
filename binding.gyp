@@ -4,6 +4,6 @@
     "include_dirs": [
       "<!(node -e \"require('napi-macros')\")"
     ],
-    "sources": [ "index.c", "lib/picosat.c" ]
+    "sources": [ "lib/native/index.c", "lib/picosat.c" ]
   }]
 }
