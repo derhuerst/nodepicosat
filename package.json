@@ -10,7 +10,9 @@
     "index.c"
   ],
   "scripts": {
-    "install": "node-gyp-build",
+    "build-native": "node-gyp-build",
+    "build-browsers": "./scripts/build-browsers.sh",
+    "install": "npm run build-native && npm run build-browsers",
     "test": "node test.js"
   },
   "keywords": [

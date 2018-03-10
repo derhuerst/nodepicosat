@@ -1,6 +1,6 @@
 'use strict'
 
-const solveUnsafe = require('./lib/native')
+const solveUnsafe = require(process.browser ? './lib/browser' : './lib/native')
 
 const encode = (formula, assumptions) => {
   if (!Array.isArray(formula)) throw new Error('formula must be an array.')
