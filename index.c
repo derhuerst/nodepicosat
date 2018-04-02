@@ -12,16 +12,16 @@ NAPI_METHOD(node_picosat_sat) {
 
   int * formula;
   size_t formula_len;
-  napi_get_buffer_info(env, argv[0], (void **) &formula, &formula_len);
+  napi_get_arraybuffer_info(env, argv[0], (void **) &formula, &formula_len);
   size_t i;
-  for(i = 0; i < (formula_len / 4); i++) {
+  for(i = 0; i < (formula_len / sizeof(int32_t)); i++) {
     picosat_add(pico_ptr, formula[i]);
   }
 
   int * assumptions;
   size_t assumptions_len;
-  napi_get_buffer_info(env, argv[1], (void **) &assumptions, &assumptions_len);
-  for(i = 0; i < (assumptions_len / 4); i++) {
+  napi_get_arraybuffer_info(env, argv[1], (void **) &assumptions, &assumptions_len);
+  for(i = 0; i < (assumptions_len / sizeof(int32_t)); i++) {
     picosat_assume(pico_ptr, assumptions[i]);
   }
 

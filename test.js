@@ -31,13 +31,13 @@ test('encodeInt32Array works', (t) => {
     -1000
   ])
 
-  t.ok(Buffer.isBuffer(buf))
-  const expectedBuf = Buffer.from([
+  t.ok(buf instanceof ArrayBuffer)
+  const expectedBuf = Int8Array.from([
     0x01, 0x00, 0x00, 0x00,
     0xff, 0xff, 0xff, 0xff,
     0xe8, 0x03, 0x00, 0x00,
     0x18, 0xfc, 0xff, 0xff
-  ])
+  ]).buffer
   t.equal(buf.toString('hex'), expectedBuf.toString('hex'))
   t.end()
 })
@@ -51,11 +51,11 @@ test('encodeStrings works', (t) => {
     -3, 4, 0,
     -4, 1, 2, 3, 0
   ])
-  t.ok(Buffer.isBuffer(encFormula))
+  t.ok(encFormula instanceof ArrayBuffer)
   t.equal(encFormula.toString('hex'), expectedFormula.toString('hex'))
 
   const expectedAssumptions = encodeInt32Array([1, -3])
-  t.ok(Buffer.isBuffer(encAssumptions))
+  t.ok(encAssumptions instanceof ArrayBuffer)
   t.equal(encAssumptions.toString('hex'), expectedAssumptions.toString('hex'))
 
   t.end()
@@ -73,11 +73,11 @@ test('encodeIntegers works', (t) => {
      1, 2, 0,
     -1, 2, 0
   ])
-  t.ok(Buffer.isBuffer(encFormula))
+  t.ok(encFormula instanceof ArrayBuffer)
   t.equal(encFormula.toString('hex'), expectedFormula.toString('hex'))
 
   const expectedAssumptions = encodeInt32Array([-1])
-  t.ok(Buffer.isBuffer(encAssumptions))
+  t.ok(encAssumptions instanceof ArrayBuffer)
   t.equal(encAssumptions.toString('hex'), expectedAssumptions.toString('hex'))
 
   t.end()
