@@ -126,7 +126,10 @@ test('solveUnsafe works', (t) => {
   ])
   const encAssumptions = encodeInt32Array([])
 
-  const solution = solveUnsafe(encFormula, encAssumptions)
+  const solutionBuf = solveUnsafe(encFormula, encAssumptions)
+  t.ok(solutionBuf instanceof ArrayBuffer)
+  const solution = new Int32Array(solutionBuf)
+  t.equal(solution.length, 4)
   t.equal(solution[0], 10) // assert if satisfiable
   t.end()
 })

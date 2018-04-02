@@ -124,6 +124,7 @@ const solveUnsafe = (formula, assumptions) => {
 const _solve = (formula, assumptions, encode) => {
   const [encFormula, encAssumptions] = encode(formula, assumptions)
   const solution = solveUnsafe(encFormula, encAssumptions)
+  // todo: decode ArrayBuffer
 
   let statusCode
   if (solution[0] === 10) statusCode = SATISFIABLE
