@@ -4,21 +4,25 @@
 #include "lib/picosat.h"
 
 NAPI_METHOD(node_picosat_sat) {
-  NAPI_ARGV(2)
-  NAPI_ARGV_BUFFER(formula, 0)
-  NAPI_ARGV_BUFFER(assumptions, 1)
+  napi_value argv[2];
+  size_t argc = 2;
+  napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
 
   PicoSAT *pico_ptr = picosat_init();
 
-  int * formula_int = (int*) formula;
+  int * formula;
+  size_t formula_len;
+  napi_get_buffer_info(env, argv[0], (void **) &formula, &formula_len);
   size_t i;
   for(i = 0; i < (formula_len / 4); i++) {
-    picosat_add(pico_ptr, formula_int[i]);
+    picosat_add(pico_ptr, formula[i]);
   }
 
-  int * assumptions_int = (int*) assumptions;
+  int * assumptions;
+  size_t assumptions_len;
+  napi_get_buffer_info(env, argv[1], (void **) &assumptions, &assumptions_len);
   for(i = 0; i < (assumptions_len / 4); i++) {
-    picosat_assume(pico_ptr, assumptions_int[i]);
+    picosat_assume(pico_ptr, assumptions[i]);
   }
 
   int status_code = picosat_sat(pico_ptr, -1);
